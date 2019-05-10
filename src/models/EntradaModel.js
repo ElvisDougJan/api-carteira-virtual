@@ -1,7 +1,8 @@
 const Schema = require('mongoose').Schema
 
 const EntradaSchema = new Schema({
-  qtdEntrada: { type: Number, required: true },
+  qtdEntrada: { type: Number, default: null },
+  qtdDeposito: { type: Schema.Types.ObjectId, ref: 'deposito' }
 }, {
     timestamps: {
       createdAt: 'criadoEm',

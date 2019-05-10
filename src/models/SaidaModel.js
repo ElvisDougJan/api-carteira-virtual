@@ -2,6 +2,7 @@ const Schema = require('mongoose').Schema
 
 const SaidaSchema = new Schema({
   qtdSaida: { type: Number, required: true },
+  qtdDeposito: { type: Schema.Types.ObjectId, ref: 'deposito' }
 }, {
     timestamps: {
       createdAt: 'criadoEm',
