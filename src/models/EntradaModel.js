@@ -2,7 +2,8 @@ const Schema = require('mongoose').Schema
 
 const EntradaSchema = new Schema({
   qtdEntrada: { type: Number, default: null },
-  qtdDeposito: { type: Schema.Types.ObjectId, ref: 'deposito' }
+  descricao: { type: String, default: null },
+  categoria: { type: Schema.Types.ObjectId, ref: 'categoria' }
 }, {
     timestamps: {
       createdAt: 'criadoEm',

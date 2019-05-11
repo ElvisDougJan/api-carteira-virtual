@@ -4,6 +4,7 @@ const MovimentacaoController = require('./MovimentacaoController')
 class SaidaController {
 
   async cadastraNovaSaida(req, res) {
+    console.log(req.body)
     await MovimentacaoController.realizaMovimentacao('saida', req.body.qtdSaida)
       .then(async () => {
         await SaidaModel.create(req.body)
@@ -14,4 +15,4 @@ class SaidaController {
   }
 }
 
-module.exports = new SaidaController()
+module.exports = SaidaController

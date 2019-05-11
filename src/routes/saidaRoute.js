@@ -1,6 +1,7 @@
 const SaidaController = require('./../controllers/SaidaController')
+const saidaInstancia = new SaidaController()
 const router = require("express").Router()
 
-router.post('/nova-saida', (req, res) => SaidaController.cadastraNovaSaida(req, res))
+router.post('/saida', (req, res) => saidaInstancia.cadastraNovaSaida(req, res))
 
 module.exports = router

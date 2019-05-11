@@ -1,40 +1,49 @@
 const DepositoModel = require('../models/DepositoModel').CriaModelDeposito()
 
-class MovimentaDepositoController {
+class MovimentacaoController {
 
   constructor() {
     this.idDeposito = ''
   }
 
   async criaPrimeiroRegistroDeposito() {
-    await DepositoModel.find({})
+    return DepositoModel.find({})
       .then(async depositosEncontrados => {
+        console.log(depositosEncontrados[0].id)
         if (depositosEncontrados.length === 0) {
           await DepositoModel.create({ qtdDeposito: 0 })
             .then(() => console.log('Registro de deposito zerado criado'))
             .catch(err => console.error(err))
         } else {
-          this.idDeposito = depositosEncontrados[0].id
+          this.idDeposito = depositosEncontrados[0]._id
         }
       })
   }
 
   async realizaMovimentacao(tipo, quantidade) {
+    console.log('ID', this.idDeposito)
+    console.log(quantidade)
     await DepositoModel.findById(this.idDeposito)
       .then(deposito => {
         if (tipo === 'entrada') {
           DepositoModel.updateOne({ _id: this.idDeposito },
-            { qtdDeposito: deposito.qtdDeposito + quantidade })
-            .then(() => console.log('Deposito atualizado com entrada'))
+            { qtdDeposito: parseFloat(deposito.qtdDeposito) + parseFloat(quantidade) })
+            .then((res) => console.log('Deposito atualizado com entrada', res))
             .catch(err => console.error('ERRO AO ATUALIZAR O DEPOSITO NA ENTRADA:', err))
         } else {
           DepositoModel.updateOne({ _id: this.idDeposito },
-            { qtdDeposito: deposito.qtdDeposito - quantidade })
+            { qtdDeposito: parseFloat(deposito.qtdDeposito) - parseFloat(quantidade) })
             .then(() => console.log('Deposito atualizado com saída'))
             .catch(err => console.error('ERRO AO ATUALIZAR O DEPOSITO NA SAíDA:', err))
         }
       })
   }
+
+  async consultaDeposito(req, res) {
+    await DepositoModel.findOne({ _id: this.idDeposito })
+      .then(deposito => res.status(200).json(deposito))
+      .catch(err => console.error(err))
+  }
 }
 
-module.exports = new MovimentaDepositoController()
+module.exports = new MovimentacaoController()

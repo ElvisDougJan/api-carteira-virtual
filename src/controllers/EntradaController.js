@@ -12,6 +12,13 @@ class EntradaController {
       })
       .catch(err => console.error('ERRO AO CADASTRAR NOVA ENTRADA: ', err))
   }
+
+  async consultaTodasEntradas(req, res) {
+    await EntradaModel.find({})
+      .populate('categoria')
+      .then(entradas => res.status(200).json(entradas))
+      .catch(err => res.status(400).json(err))
+  }
 }
 
-module.exports = new EntradaController()
+module.exports = EntradaController
