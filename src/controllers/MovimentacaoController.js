@@ -9,7 +9,6 @@ class MovimentacaoController {
   async criaPrimeiroRegistroDeposito() {
     return DepositoModel.find({})
       .then(async depositosEncontrados => {
-        console.log(depositosEncontrados[0].id)
         if (depositosEncontrados.length === 0) {
           await DepositoModel.create({ qtdDeposito: 0 })
             .then(() => console.log('Registro de deposito zerado criado'))
@@ -21,8 +20,6 @@ class MovimentacaoController {
   }
 
   async realizaMovimentacao(tipo, quantidade) {
-    console.log('ID', this.idDeposito)
-    console.log(quantidade)
     await DepositoModel.findById(this.idDeposito)
       .then(deposito => {
         if (tipo === 'entrada') {
