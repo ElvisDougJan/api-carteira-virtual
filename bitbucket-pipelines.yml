@@ -14,5 +14,5 @@ pipelines:
           - cp deploy/elvis-pessoal-key.pem ~/.ssh/
           - chmod 400 ~/.ssh/elvis-pessoal-key.pem
           - eval "$(ssh-agent -s)"
-          - git remote add api-carteira cdop:/home/ubuntu/repository.git
+          - git remote add api-carteira api-carteira:/home/ubuntu/repository.git
           - git push api-carteira master
