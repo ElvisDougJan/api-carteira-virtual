@@ -1,0 +1,18 @@
+clone:
+  depth: full
+
+pipelines:
+  default:
+    - step:
+        image: node:10.15.3
+        caches:
+          - node
+        script:
+          - mkdir -pv ~/.ssh
+          - cp deploy/config ~/.ssh/
+          - cp deploy/known_hosts ~/.ssh/
+          - cp deploy/elvis-pessoal-key.pem ~/.ssh/
+          - chmod 400 ~/.ssh/elvis-pessoal-key.pem
+          - eval "$(ssh-agent -s)"
+          - git remote add api-carteira cdop:/home/ubuntu/repository.git
+          - git push api-carteira master

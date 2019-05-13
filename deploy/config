@@ -1,0 +1,4 @@
+Host api-carteira
+Hostname 3.215.231.192
+User ubuntu
+IdentityFile ~/.ssh/elvis-pessoal-key.pem
